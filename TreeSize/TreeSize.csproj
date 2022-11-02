@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Explorer.ico" />
+    <None Remove="Resources\File.ico" />
+    <None Remove="Resources\Folder.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Explorer.ico" />
+    <Resource Include="Resources\File.ico" />
+    <Resource Include="Resources\Folder.ico" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,57 @@
+﻿<Window x:Class="TreeSize.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:model="clr-namespace:TreeSize.Model" 
+        xmlns:vm="clr-namespace:TreeSize.ViewModel"
+        mc:Ignorable="d"
+        Icon="/Resources/Explorer.ico"
+        ResizeMode="NoResize"
+        Title="TreeSize" Height="600" Width="600">
+
+    <Window.DataContext>
+        <vm:TreeViewModel/>
+    </Window.DataContext>
+
+    <Grid Background="Green">
+       
+        <StackPanel VerticalAlignment="Top" Width="600" Height="50" Margin="0,0,0,0" >
+            <Button Command="{Binding OpenSelectDirectoryDialog}" Height="50" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Height="32" Width="32" Source="/Resources/Folder.ico"/>
+            </Button>
+        </StackPanel>
+
+        <TreeView ItemsSource="{Binding TreeContainer.TreeRoot.SubNodes}" Margin="0,50,0,50">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type model:TreeNode}" ItemsSource="{Binding Path=SubNodes}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="16" Width="16"  Tag="{Binding Type}">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Style.Triggers>
+                                        <DataTrigger  Binding="{Binding Type}" Value="File">
+                                            <Setter Property="Source" Value="/Resources/File.ico"/>
+                                        </DataTrigger >
+                                        <DataTrigger  Binding="{Binding Type}" Value="Directory">
+                                            <Setter Property="Source" Value="/Resources/Folder.ico"/>
+                                        </DataTrigger >
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <TextBlock Width="300" Text="{Binding Path=Name}" />
+                        <TextBlock Width="30" Text="{Binding Path=Percent, StringFormat={}{0:0%}}" />
+                        <ProgressBar Height="10" Width="100" Minimum="0" Maximum="1" Value="{Binding Path=Percent}" />
+                        <TextBlock Margin="10 0 0 0" Width="100" Text="{Binding Path=Size, StringFormat={}{0:N0}}" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+        
+        <StackPanel VerticalAlignment="Bottom" Width="600" Height="50" >
+            <TextBlock  HorizontalAlignment="Left" Text="{Binding TreeContainer.TreeRoot.Path}" Width="400" Foreground="White" />
+            <TextBlock Margin="0,5,0,0" HorizontalAlignment="Left" Text="{Binding TreeContainer.TreeRoot.Size, StringFormat={}{0:N0}}" Width="400" Foreground="White" />
+        </StackPanel>
+    </Grid>
+</Window>
