@@ -38,6 +38,8 @@ public class TreeBuilder
         {
             _treeContainer.TreeRoot.SubNodes.Add(new TreeNode(file, _treeContainer.TreeRoot));
         }
+
+        CalculatePercent(_treeContainer.TreeRoot);
     }
 
     private void Traverse(DirectoryInfo dir, TreeNode root)
@@ -61,7 +63,7 @@ public class TreeBuilder
         CalculatePercent(root);
     }
     
-    void CalculatePercent(TreeNode root)
+    private void CalculatePercent(TreeNode root)
     {
         foreach(var node in root.SubNodes)
         {

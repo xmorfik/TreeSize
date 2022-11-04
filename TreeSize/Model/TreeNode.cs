@@ -35,8 +35,6 @@ public class TreeNode : INotifyPropertyChanged
                 AddToPerents(_size);
             }
 
-            CalculatePercent();
-
             OnPropertyChanged();
         }
     }
